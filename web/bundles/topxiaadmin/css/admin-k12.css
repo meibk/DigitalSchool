@@ -1,0 +1,52 @@
+.childId {
+  width:90%;
+  padding-top: 5px;
+}
+
+.deleteNumberBtn {
+  position: relative;;
+  top:10px;
+  cursor: pointer;
+  float: right;
+}
+
+.container.subject {
+	max-width: 100%;
+}
+
+.container.subject {
+	min-height: 132px;
+}
+.subject .btn {
+	width: 68px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+.eduMaterial-table .material-selector {
+  cursor: pointer;
+}
+
+.eduMaterial-table .material-list {
+  display: none;
+}
+
+.eduMaterial-table .material-name{
+    cursor: pointer;
+    padding:5px;
+    display: block;
+    overflow: hidden;
+    width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-border-radius: 5px;
+            border-radius: 5px;
+}
+
+.eduMaterial-table span.material-name:hover{
+    background-color: #d9edf7;
+}
+
+.eduMaterial-table .popover {
+  max-width: 400px;
+  min-width: 400px;
+}

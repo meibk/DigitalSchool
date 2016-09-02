@@ -1,0 +1,43 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+{% set modal_class = 'modal-lg' %}
+
+{% block title %}班级选择{% endblock %}
+{% block body %}
+
+  <div class="class-choise container">
+    {# 小学，初中，高中#}
+    {% for school in schools %}
+    <div class="class-choise-item">
+      {# title #}
+      <h5 class="class-choise-title">{{school.name}}</h5>
+
+      {# 一年级，二年级......#}
+      {% set grades = school.grades|default(null) %}
+      {% for grade in grades %}
+      <div class="row mbl"> 
+        <span class="col-md-2">{{ grade['name'] }}</span>
+     
+        {% set classes = classList[grade['id']]|default(null) %}
+        <div class="col-md-10">
+        {# 一班，二班，三班......#}
+        {% for class in classes %}
+          <button type="button" class="btn btn-default class-item col-md-2 mrm mbm" data-id="{{class.id}}" title="{{class.name}}" data-name="{{class.name}}" autocomplete="off" >
+              {{class.name}}
+          </button>
+        {% endfor %}
+        </div>
+      </div> 
+      {% endfor %}
+
+    </div>
+    {% endfor %}
+  </div>
+
+
+{% endblock %}
+{% block footer %}
+  <div class="chooser-footer">
+    <button id="class-select-btn" type="submit" class="btn btn-primary pull-right class-select-btn">确认</button>
+    <button type="button" class="btn btn-link pull-right" data-dismiss="modal">取消</button>
+  </div>
+{% endblock %}

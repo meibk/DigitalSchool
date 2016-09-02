@@ -1,0 +1,54 @@
+{% extends 'TopxiaWebBundle:My:layout.html.twig' %}
+
+{% block title %}我的教学 - {{ parent() }}{% endblock %}
+
+{% set side_nav = 'my-teaching-courses' %}
+
+{% block main %}
+  <div class="panel panel-default panel-col">
+    <div class="panel-body">
+      <div class="myteaching-title">
+        <div class="text">在教课程</div>
+        <div class="num"><span class="label label-success">{{courseCount|default(0)}}</span></div>
+      </div><br>
+      <hr>
+
+      <ul class="nav nav-pills class-nav" role="tablist">
+        <li role="presentation" {% if classId|default("all") == 'all' %}class="active"{% endif %}><a href="{{path('my_teaching_courses',{'classId':'all'})}}">全部</a></li>
+        {% for class in classes %}
+          <li role="presentation" {% if classId == class.id %}class="active"{% endif %}><a href="{{path('my_teaching_courses',{'classId':class.id})}}">{{ class_name(class) }}</a></li>
+        {% endfor %}
+
+        {% if hasPublicCourse %}
+          <li role="presentation" {% if classId =='0' %}class="active"{% endif %}><a href="{{path('my_teaching_courses',{'classId':'0'})}}">公有课程</a></li>
+          
+        {% endif %}
+      </ul>
+
+      <div class="row">
+        {% if classId|default('all') != 'all' %}
+          {#如果选中了班级，则只显示选中班级的课程#}
+          {% for course in coursesGroupedByClassId[classId]|default(null) %}
+            {% set class = classes[course.classId]|default(null) %} 
+            {% include 'TopxiaWebBundle:MyTeaching:teaching-course-gird.html.twig' %}
+          {% else %}
+            <div class="empty">尚无在教课程</div>
+          {% endfor %}
+        {% else %}
+          {#如果未选中任何班级，显示所有课程#}
+          {% for course in courses %}
+            {% set class = classes[course.classId]|default(null) %} 
+            {% include 'TopxiaWebBundle:MyTeaching:teaching-course-gird.html.twig' %}
+          {% else %}
+            <div class="empty">尚无在教课程</div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+
+
+

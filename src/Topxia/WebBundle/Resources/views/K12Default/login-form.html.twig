@@ -1,0 +1,42 @@
+    <div class="login-main">
+      <div class="login-avatar"></div>
+      <form id="login-form" class="login-form" method="post" action="{{ path('login_check') }}">
+        {# <a id="view-accounts" href="javascript:;" style="position: absolute;top:5px;right:30px;">
+          <strong><small>查看体验帐号</small></strong>
+        </a>
+
+        <div id="view-accounts-content" style="display:none;">
+          <div style="width:300px;">
+            <h5><strong>体验EduSoho校园版</strong></h5>
+            <p style="font-size:12px;">教师帐号： <span class="text-success">10001</span> 密码：<span class="text-success">10001</span></p>
+            <p style="font-size:12px;">学生帐号： <span class="text-success">10002</span> 密码：<span class="text-success">10002</span></p>
+            <p style="font-size:12px;">
+              &raquo;  <a href="http://www.edusoho.com/" target="_blank">什么是EduSoho?</a>
+              &raquo; <a href="http://demo.edusoho.com" target="_blank">EduSoho通用版演示站</a>
+            </p>
+          </div>
+        </div> #}
+
+        <div class="form-group">
+            <input class="form-control" id="login_username" type="text" name="_username" value="{{ last_username|default('') }}" placeholder="学号/工号/手机号/Email" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" id="login_password" type="password" name="_password" placeholder="密码" />
+        </div>
+
+        <div class="form-group">
+          {% if error|default(null) %}
+            <div class="pull-right text-danger">{{ error.message|trans }}</div>
+          {% endif %}
+          <label class="login-checkbox"> <input type="checkbox" name="_remember_me" checked="checked"> 记住密码 </label>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-fat btn-success btn-block">登录</button>
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+        </div>
+
+          
+
+      </form>
+    </div>

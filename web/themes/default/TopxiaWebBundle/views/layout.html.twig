@@ -1,0 +1,78 @@
+{% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class=""> <!--<![endif]-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %} {{ setting('site.name', 'EDUSOHO') }} - {% if setting('site.slogan') %}{{ setting('site.slogan') }} -{% endif %} Powered by EduSoho 校园版{% endblock %}</title>
+  <meta name="keywords" content="{% block keywords %}{% endblock %}" />
+  <meta name="description" content="{% block description %}{% endblock %}" />
+  <meta content="{{ csrf_token('site') }}" name="csrf-token" />
+  {{ setting('login_bind.verify_code', '')|raw }}
+  {% if setting('site.favicon') %}
+  <link href="{{ asset(setting('site.favicon')) }}" rel="shortcut icon" />
+  {% endif %}
+  {% block stylesheets %}
+    <link href="{{ asset('assets/libs/gallery2/bootstrap/3.1.1/css/bootstrap.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" media="screen" href="{{ asset('assets/css/common.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('assets/css/bootstrap-extends.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('bundles/topxiaweb/css/web.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('bundles/topxiaweb/css/member.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('assets/css/k12-style.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('assets/css/k12-iconfont.css') }}" />    
+    <link rel="stylesheet" media="screen" href="{{ asset('bundles/topxiaweb/css/web-k12.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/default/css/spring.css') }}" />
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/default/css/font-awesome.min.css') }}" />
+
+    <!--[if lt IE 8]>
+      <link href="{{ asset('assets/css/oldie.css') }}" rel="stylesheet">
+    <![endif]-->
+  {% endblock %}
+  <!--[if lt IE 9]>
+    <script src="{{ asset('assets/libs/html5shiv.js') }}"></script>
+  <![endif]-->
+
+  <!--[if IE 8]>
+    <script src="{{ asset('assets/libs/respond.min.js') }}"></script>
+  <![endif]-->
+
+  {% block head_scripts %}{% endblock %}
+
+</head>
+<body {% if bodyClass|default('') %}class="{{ bodyClass }}"{% endif %}>
+
+{% block body %}
+
+  {% include 'TopxiaWebBundle::header.html.twig' %}
+
+  <div id="content-container" class="container">
+    {% if app.user and app.user.setup == 0 and (hideSetupHint is not defined or hideSetupHint != true) %}
+      <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        为了帐号的安全，以及更好的使用体验，请设置您的Email地址。
+        <a href="{{ path('settings_setup') }}">现在就去设置</a>
+      </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+    
+  </div>
+
+  {% include 'TopxiaWebBundle::footer.html.twig' %}
+
+  {% block bottom %}{% endblock %}
+
+  <div id="login-modal" class="modal" data-url="/login/ajax"></div>
+  <div id="modal" class="modal"></div>
+
+{% endblock %}
+
+{% include 'TopxiaWebBundle::script_boot.html.twig' with {script_main: asset('bundles/topxiaweb/js/app.js')} %}
+
+
+</body>
+</html>

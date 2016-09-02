@@ -1,0 +1,200 @@
+{% extends 'TopxiaWebBundle::layout.html.twig' %}
+{% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
+
+{% set script_controller = 'default/homepage' %}
+
+{% set blocks = data('Blocks', {'codes':['home_top_banner'] }) %}
+
+{% block content %}
+	<div class="row">
+		
+	    <!-- main -->
+	    {% if homepageSettings.heroSlidesEnabled|default(true) %}
+
+	    <div class="main col-md-12">
+	      <!-- banner-->
+	       <div class="homepage-feature homepage-feature-slides">
+	       	{% if blocks['home_top_banner'] %}
+				{{ blocks['home_top_banner']|raw }}
+			{% else %}
+		        <a href="#"><img src="/assets/img/placeholder/carousel-1140x300-1.png"></a>
+				<a href="#"><img src="/assets/img/placeholder/carousel-1140x300-2.png"></a>
+				<a href="#"><img src="/assets/img/placeholder/carousel-1140x300-3.png"></a>
+		    {% endif %}
+
+	          <div class="cycle-pager"></div>
+	            <div class="slide-nav cycle-prev"><span class="glyphicon glyphicon-chevron-left"></span></div>
+	            <div class="slide-nav cycle-next"><span class="glyphicon glyphicon-chevron-right"></span>
+	          </div>
+	       </div>
+
+	       <div class="statistics">
+            共有 <b class="num">{{ statistics['activeLessonCount']|default(0) }}</b> 课时可供在线学习<br>
+            过去24小时共 <b class="num">{{ statistics['signInCount']|default(0) }}</b> 人登录学习，<br>
+            完成了 <b class="num">{{ statistics['todayFinishedLessonCount']|default(0) }}</b> 个课时<br><br>
+            迄今总共已完成 <b class="num-sm">{{ statistics['totalFinishedLessonCount']|default(0) }}</b> 个课时
+           </div>
+
+           <div id="login_float_panel" style="display: none;">
+           	<div class="pull-right">
+		       	<button class="close" type="button" title="关闭"><span aria-hidden="true">&times;</span></button>
+	       	</div>
+		    {% include 'TopxiaWebBundle:K12Default:login-form.html.twig' %}
+		   </div>
+	    </div>
+
+	    {% endif %}
+
+	    <div class="col-md-8">
+	    	<!--  students -->
+	    	{% if homepageSettings.studentFacesWallEnabled|default(true) %}
+
+			<div class="es-box teachers">
+				<div class="es-box-heading">
+			      <h2>{{ homepageSettings.studentTitle|default('学生照片墙') }}</h2>
+			  	</div>
+			      {% set students = data('RecommendStudents',{'count': homepageSettings.studentNum|default(30)}) %}
+			      {% if students %}
+			        <ul class="row">
+			        	<div class="col-md-12">
+			          {% for student in students %}
+			            {% if student %} 
+			                <span id="{{ student.number }}">
+			                  {# <a href="{{ path('user_show', {id:student.id}) }}"> #}
+			                   <img class="avatar" width="66" src="{{ default_path('avatar', student.mediumAvatar, '') }}">
+			                  {# </a> #}
+			           
+			                    {# <span>{{ web_macro.user_link(student) }}</span> #}
+			                      {# <i> {{ student.title }}</i> #}
+			                      {# <p> {{ teacher.about|plain_text(30) }}</p> #}
+			                   {# </div> #}
+			               </span>
+			            {% endif %}
+			          {% endfor %}
+			        </ul>
+			      {% else %}
+			            <div class="empty">尚未设置学生用户头像，请在管理后台设置。</div>
+			      {% endif %}
+			</div>
+
+			{% endif %}
+
+	    	<!--  teachers -->
+	    	{% if homepageSettings.recommendTeachersEnabled|default(true) %}
+
+			<div class="es-box teachers">
+				<div class="es-box-heading">
+			      <h2>{{ homepageSettings.teacherTitle|default('优秀教师') }}</h2>
+			      <a class="pull-right" href="{{ path('teacher') }}">更多&gt;</a>
+			  	</div>
+
+		      {% set teachers = data('RecommendTeachers',{'count': homepageSettings.teacherNum|default(6)}) %}
+		      {% if teachers %}
+		        <ul class="row">
+		          {% for teacher in teachers %}
+		            {% if teacher %} 
+		              <li class="col-sm-6 col-md-4">
+		                <div class="teachers-item">
+		                  <a href="{{ path('user_show', {id:teacher.id}) }}">
+		                   <img class="img-circle" src="{{ default_path('avatar', teacher.mediumAvatar, '') }}">
+		                  </a>
+		                    <span>{{ web_macro.user_link(teacher) }}</span>
+		                      <i> {{ teacher.title }}</i>
+		                      <p> {{ teacher.about|sub_text(50) }}</p>
+		                   </div>
+		              </li>
+		            {% endif %}
+		          {% endfor %}
+		        </ul>
+		      {% else %}
+		            <div class="empty">尚未设置推荐老师，请在管理后台设置。</div>
+		      {% endif %}
+			        
+			</div>
+
+			{% endif %}
+
+	    </div>
+
+	    <div class="col-md-4">
+	      {# 最新资讯 #}
+	      {% if homepageSettings.latestArticleEnabled|default(true) %}
+
+	      {% set articles = data('LatestArticles',{'count': homepageSettings.articleNum|default(5)}) %}
+	      
+	        <div class="es-box news">
+	          <div class="es-box-heading">
+	            <h2>{{ homepageSettings.articleTitle|default('校园公告') }}</h2>
+	            <a class="pull-right" href="{{ path('article_show') }}">更多&gt;</a>
+	          </div>
+
+	          {% if articles %}
+
+	          <div class="es-box-body news-side">
+	            <ul class="row list-unstyled">
+	            {% for article in articles %}
+	              {% if article %}
+	                <li class="col-md-12">
+	                  <a href="{{ path('article_detail', {id:article.id}) }}" 
+	                  	{% if article.title|length > 15 %}title="{{ article.title }}" {% endif %}> 
+	                  	{# <span>[{{ article.category.name }}]</span> #}
+	                  	{{ article.title|sub_text(15) }} </a>
+	                  <em class="text-muted text-sm pull-right"> {{ article.updatedTime|date('m-d') }} {{ article.source|default('')}}</em>
+	                </li>
+	              {% endif %}
+	            {% endfor %}
+	            </ul>
+	          </div>
+	          {% else %}
+		            <div class="empty">尚未设置校园公告，请在管理后台设置。</div>
+	          {% endif %}
+	        </div>
+
+	      {% endif %}
+
+
+	      {# 小组 #}
+	      {% if homepageSettings.hotGroupsEnabled|default(true) %}
+	        {% set groups = data('HotGroup', {'count':homepageSettings.groupNum|default(5)}) %}
+	          <div class="es-box hot-group">
+	            <div class="es-box-heading">
+	            	<h2>{{ homepageSettings.groupTitle|default('热门兴趣小组') }}</h2>
+	            	<a href="{{path('group_search_group')}}" class="pull-right">更多&gt;</a></div>
+	            {% if groups %}
+	            <div class="es-box-body">
+	               <ul class="list-unstyled">
+	                {% for group in groups %}
+	                  {% if group.status=='open' %} 
+	                    <li class="col-md-12"> 
+	                      <div class="panel">
+	                         <div class="media">
+	                            <a href="{{path('group_show',{id:group.id})}}" title="{{group.title}}" class="pull-left">
+	                              {% if group.logo %}
+	                              <img src="{{file_path(group.logo)}}" alt="{{group.title}}" height="58">
+	                              {%else%}
+	                              <img src="{{asset('assets/img/default/group.png')}}" alt="{{group.title}}" height="58">
+	                              {%endif%}
+	                            </a>
+	                            <div class="media-body">
+	                              <p><a  href="{{path('group_show',{id:group.id})}}">{{group.title|sub_text(20)}}</a></p>
+	                              <div class="text-muted text-normal">
+	                                {{group.memberNum}}个成员&nbsp;
+	                                {{group.threadNum}}个话题
+	                              </div>
+	                            </div> 
+	                          </div>
+	                        </div>
+	                      </li>
+	                    {% endif %}
+	                {% endfor %}
+	              </ul>
+	            </div>
+
+	            {% else %}
+		            <div class="empty">尚未设置小组，请在管理后台设置。</div>
+	          {% endif %}
+	          </div>
+	      {% endif %}
+	    </div>
+	</div>
+{% endblock %}

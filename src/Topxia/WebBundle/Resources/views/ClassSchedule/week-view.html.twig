@@ -1,0 +1,61 @@
+{% set week = ['日','一','二','三','四','五','六']%}
+<div class="row">
+  <div class="col-md-1" style="display:none;">
+    <a href="javascript:;" class="btn btn-link btn-block previous-week"><span class="glyphicon glyphicon-chevron-left "></span></a>
+  </div>
+
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="schedule-calendar schedule-calendar-week">
+        <thead>
+          <tr>
+            {% for day,items in schedules %}
+              <th class=" {% if day == 'now'|date('Ymd')%} today {% endif %} {% if loop.index0 == 0 %} sunday {% endif %}"  data-day="{{ day }}" >
+                <div class="week-text">{{ week[loop.index0]}}</div>
+                <div class="day-text">{{ day|slice(6,2)|number_format }}</div>
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% if changeMonth %} <tr class="hidden changeMonth"></tr>{% endif %}
+          <tr>
+            {% for day,items in schedules %}
+              <td>
+                <ul class="schedule-lesson-list" data-day="{{ day }}">
+                  {% for item in items %}
+                    {% if lessons[item.lessonId]|default(null) %}
+                      {% set lessonLearn = lessonLearns[item.lessonId] | default(null) %}
+                      {% set lessonUrl = path('course_learn', {id:courses[lessons[item.lessonId].courseId].id}) ~ '#lesson/' ~ item.lessonId %}
+
+                        <li class="{% if mode == 'edit' %}{% if item.id not in mySchedules[day]|default(null) and not app.user.isAdmin() %} hidden {% endif %}{% endif %}" data-id="{{ item.lessonId }}" data-url="{{ lessonUrl }}">
+                          {% set course = courses[lessons[item.lessonId].courseId] %}
+                          <div class="item-div gotolesson" data-url="{{ lessonUrl }}">
+                            <div class="thumbnail" data-title="{{ course.title }}" title="来自{{ course.title }}课程">
+                              {% if mode == 'edit' %}
+                                <button type="button" class="close lesson-remove"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                              {% endif %}
+
+                                {% if lessonLearn and lessonLearn.status == 'finished' %}
+                                  <span class="finished-icon"><span class="text-success">已学</span></span>
+                                {% endif %}
+                                  <div class="lesson-title">{{ lessons[item.lessonId].title }}</div>
+                            </div>
+                          </div>
+                        </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </td>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+    </div> <!-- /table-responsive -->
+  </div> <!-- /col-md-10 -->
+
+  <div class="col-md-1" style="display:none;">
+    <a href="javascript:;" class="btn btn-link btn-block next-week"><span class="glyphicon glyphicon-chevron-right"></span></a>
+  </div>
+
+</div>

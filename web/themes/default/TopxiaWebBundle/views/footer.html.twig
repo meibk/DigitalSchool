@@ -1,0 +1,20 @@
+    <footer class="footer">
+      <div class="container">
+        {{ render(controller('TopxiaWebBundle:Default:footNavigation')) }}
+
+        {# <ul class="footer-menu">
+          <li><a href="">底部菜单1</a></li>
+          <li><a href="">底部菜单2</a></li>
+          <li><a href="">底部菜单3</a></li>
+          <li><a href="">底部菜单4</a></li>
+        </ul> #}
+        <div class="record">
+          <a href="http://www.miibeian.gov.cn/" target="_blank">{{ setting('site.icp') }}</a>
+          <a href="{{ path('course_archive') }}" class="mll">课程存档</a>
+        </div>
+
+        <div class="copyright">
+          {% include "TopxiaWebBundle::powered-by.html.twig" %}
+        </div>  
+      </div>
+    </footer>

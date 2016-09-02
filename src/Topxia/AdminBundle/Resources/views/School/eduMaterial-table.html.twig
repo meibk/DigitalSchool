@@ -1,0 +1,55 @@
+<div class="table-responsive">
+  <table class="table table-bordered eduMaterial-table  text-center">
+    {% for subject in subjects %}
+      {% if loop.index==1 %}
+        <tr class="info">
+          <td></td>
+          {% for grade in grades %}
+            <td>{{grade['name']}}</td>
+          {% endfor %}
+        </tr>
+      {% endif %}
+      <tr>
+        {% set materialList=materials[subject.id]|default('') %}
+        <td class="info">
+          {{subject.name}}
+          {% if not materialList %}
+            <a href="#modal" data-toggle="modal" data-url="{{path('admin_school_subject_update',{schoolType:schoolType,subjectId:subject.id})}}">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+          {% endif %}
+        </td>
+        {% set eduMaterialList=eduMaterials[subject.id] %}
+        {% for grade in grades %}
+          {% set eduMaterial=eduMaterialList[grade['id']]|default('') %}
+          <td class="materialTd">
+            {% if materialList %}
+              <div class="material-selector">
+                <div class="eduMaterial-name">{{eduMaterial.materialName|default('')}}</div>
+                <span class="caret"></span>
+                <div class="material-list">
+                  <div class="row">
+                    {% for material in materialList %}
+                      <div class="col-md-6">
+                        <span data-url="{{path('admin_school_eduMaterial_update')}}" data-eduMaterialId="{{eduMaterial.id|default('')}}" data-materialId="{{material.id|default('') }}" class="material-name" title="{{material.name}}">{{material.name}}</span>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              --
+            {% endif %}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+  <div class="row">
+    <div class="col-md-12">
+      <a href="#modal" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-url="{{path('admin_school_subject_add',{schoolType:schoolType})}}">
+        +添加自定义学科
+      </a>
+    </div>
+  </div>
+</div>

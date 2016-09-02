@@ -1,0 +1,48 @@
+{% extends 'TopxiaAdminBundle:School:layout.html.twig' %}
+
+{% block title %}班级设置 - {{ parent() }}{% endblock %}
+
+{% set menu = 'classSetting' %}
+{% set script_controller = 'school/class-setting' %}
+
+{% block main %}
+<div class="page-header clearfix">
+  <a class="btn btn-info btn-sm pull-right" id="add-navigation-btn"  href="{{path('admin_school_class_editor', {type:'create', search:app.request.query.all()})}}" >新建班级</a>
+  <h1 class="pull-left">班级设置</h1>
+</div>
+<form id="class-search-form" class="form-inline well well-sm" action="" method="get" novalidate>
+    
+  <div class="form-group">
+    <select class="form-control" name="gradeId">
+      {{ select_options_for_grade('', app.request.query.get('gradeId'), '--选择年级--') }}
+    </select>
+  </div>
+
+  <span class="divider"></span>
+  
+  <div class="form-group">
+    <select  name="enabled" class="form-control">
+      {{ select_options({'1':'现有班级','0':'所有班级'}, app.request.query.get('enabled')) }}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <input type="text"  name="year" class="form-control" value="{{ app.request.query.get('year') }}" placeholder="输入年份">
+  </div>
+
+  <button class="btn btn-primary">搜索</button>
+</form>
+
+
+
+<div class="row class-list">
+  {% for class in classes %}
+    {% include 'TopxiaAdminBundle:School:class-table-tr.html.twig' with {class:class} %}
+  {% else %}
+    <div class="empty">尚未添加班级</div>
+  {% endfor %}
+</div>
+
+{{ web_macro.paginator(paginator) }} 
+
+{% endblock %}

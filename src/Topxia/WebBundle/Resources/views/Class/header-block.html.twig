@@ -1,0 +1,34 @@
+<div class="row class-header">
+  <div class="col-md-12">
+    <div class="class-header-inner" style="background-image:url({{ file_url(class.backgroundImg,'classbackgroundImg.png')}})">
+      <div class="media">
+        <a class="pull-left" href="{{ path('class_show', {classId:class.id}) }}">
+          <img width="107" height="60" src="{{ file_url(class.icon,'class.png') }}" alt="...">
+        </a>
+        <div class="media-body">
+          <h1 class="media-heading">{{ class_name(class) }}</h1>
+          {% if headTeacher %}
+          <div class="media-metas">班主任： <a href="{{path('user_show',{id:headTeacher.id})}}">{{ headTeacher.truename }}</a></div>
+          {% endif %}
+        </div>
+      </div>
+
+      <ul class="nav nav-pills">
+        <li {% if classNav == 'threads' %}class="active"{% endif %}><a href="{{ path('class_threads', {classId:class.id}) }}">班级讨论区</a></li>
+        <li {% if classNav == 'schedule' %}class="active"{% endif %}><a href="{{ path('class_schedule', { classId:class.id })}}">班级课表</a></li>
+       {#  <li {% if classNav == 'courses' %}class="active"{% endif %}><a href="{{ path('class_courses', { classId:class.id })}}">班级课程</a></li> #}
+        <li {% if classNav == 'notes' %}class="active"{% endif %}><a href="{{ path('class_notes', {classId:class.id}) }}">同学笔记</a></li>
+        <li {% if classNav == 'members' %}class="active"{% endif %}><a href="{{ path('class_members', {classId:class.id}) }}">班级成员</a></li>
+      </ul>
+
+      {% if app.user.isStudent %}
+        {% block user_info %}
+          <div class="checkin-box">
+            {{ render(controller('TopxiaWebBundle:Class:userInfo', {class:class, userId:app.user.id})) }}
+          </div>
+        {% endblock %}
+      {% endif %}  
+
+    </div>
+  </div>
+</div>

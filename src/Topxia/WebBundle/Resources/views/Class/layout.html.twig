@@ -1,0 +1,49 @@
+{% extends 'TopxiaWebBundle::layout.html.twig' %}
+
+{% block title %} {{ class_name(class) }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+
+{% set classNav = classNav|default('threads') %}
+
+<div class="container-gap course-dashboard-container">
+
+  {{ render(controller('TopxiaWebBundle:Class:headerBlock', {class:class, classNav:classNav})) }}
+
+  {% block class_body %}
+    <div class="row">
+      <div class="col-md-8">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            {% block class_main %}{% endblock %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        {% block right_side %}
+
+          {% block myTasks %}
+            {% if app.user.isStudent %}
+              {{ render(controller('TopxiaWebBundle:Class:myTasks', {class:class, userId:app.user.id})) }}
+            {% endif %}
+          {% endblock %}
+
+          {% block schedule %}
+            <div class="panel panel-default schedule-panel">
+              <div class="panel-body">
+                {{ render(controller('TopxiaWebBundle:Class:schedule', {classId:class.id, userId:app.user.id, viewType:'today'})) }}
+              </div>
+            </div>
+          {% endblock %}
+
+          {% block class_side %}
+            {{ render(controller('TopxiaWebBundle:Class:statusBlock', {class:class})) }}
+          {% endblock %}
+        {% endblock %}  
+      </div>
+    </div>
+  {% endblock %}
+</div>
+
+{% endblock %}

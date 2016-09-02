@@ -1,0 +1,158 @@
+{% extends 'TopxiaAdminBundle:School:layout.html.twig' %}
+
+{% block title %}学校设置 - {{ parent() }}{% endblock %}
+
+{% set menu = 'schoolSetting' %}
+{% set script_controller = 'school/school-setting' %}
+
+{% block main %}
+
+<div class="page-header"><h1>学校设置</h1></div>
+
+{{ web_macro.flash_messages() }}
+
+<form class="form-horizontal" id="school-form" method="post">
+
+  <div class="row form-group">
+    <div class="col-md-2 control-label">
+      <label>启用年级</label>
+    </div>
+    <div class="col-md-3 controls checkbox sub-school-settings">
+      <div class="mll school-type-container">{{ checkboxs('primarySchool',{'1':'小学'},school.primarySchool) }}</div>
+      <div class="grade-settings" style="display: none;">
+        <div class="mtm grade-type">
+          <span class="mrl">
+            {{ radios('primaryYear', {'default':'6年制'}, school.primaryYear) }}
+          </span>
+          <span>
+            {{ radios('primaryYear', {'custom':'自定义年级'}, school.primaryYear) }}
+          </span>
+        </div>
+
+        <div class="mtm grade-list" id="grade-list-primary" style="display: none;">
+          <ul class="list-group grade-list-group sortable-list" id="grade-list-group-primary" data-role="list" >
+          </ul>
+          <div class="input-group">
+            <input class="form-control custom-grade-input" id="custom-grade-input-primary" type="text" data-role="item-input" data-url="">
+            <span class="input-group-btn">
+              <button class="btn btn-default btn-save-grade" type="button" data-role="item-add" >添加</button>
+            </span>
+          </div>
+
+          <script type="text/plain" data-role="model">{{ primaryGrades|json_encode|raw }}</script>
+          <script type="text/x-handlebars-template" data-role="item-template">
+              {% verbatim %}
+
+              <li class="list-group-item clearfix" data-role="item">
+                <span class="glyphicon glyphicon-resize-vertical sort-handle"></span>
+                <span class="grade-name">{{ name }}</span>
+                <input type="hidden" name="primary-grades[]" value="{{name}}|{{id}}">
+                <button  class="close delete-btn" data-role="item-delete" type="button" title="删除" >&times; </button>
+              </li>
+            {% endverbatim %}
+          </script>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 controls checkbox sub-school-settings">
+      <div class="mll school-type-container">{{ checkboxs('middleSchool',{'1':'初中'},school.middleSchool) }}</div>
+      <div class="grade-settings" style="display: none;">
+        <div class="mtm grade-type">
+          <span class="mrl">
+            {{ radios('middleYear', {'default':'3年制'}, school.middleYear) }}
+          </span>
+          <span>
+            {{ radios('middleYear', {'custom':'自定义年级'}, school.middleYear) }}
+          </span>
+        </div>
+
+        <div class="mtm grade-list" id="grade-list-middle" style="display: none;">
+          <ul class="list-group grade-list-group sortable-list" id="grade-list-group-middle" data-role="list">
+          </ul>
+          <div class="input-group">
+            <input class="form-control custom-grade-input" id="custom-grade-input-middle" type="text" data-role="item-input" data-url="">
+            <span class="input-group-btn">
+              <button class="btn btn-default btn-save-grade" type="button" data-role="item-add" >添加</button>
+            </span>
+          </div>
+
+          <script type="text/plain" data-role="model">{{ middleGrades|json_encode|raw }}</script>
+          <script type="text/x-handlebars-template" data-role="item-template">
+            {% verbatim %}
+              <li class="list-group-item clearfix" data-role="item">
+                <span class="glyphicon glyphicon-resize-vertical sort-handle"></span>
+                <span class="grade-name">{{ name }}</span>
+                <input type="hidden" name="middle-grades[]" value="{{name}}|{{id}}">
+                <button  class="close delete-btn" data-role="item-delete" type="button" title="删除" >&times; </button>
+              </li>
+            {% endverbatim %}
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 controls checkbox sub-school-settings">
+      <div class="mll school-type-container">{{ checkboxs('highSchool',{'1':'高中'},school.highSchool) }}</div>
+      <div class="grade-settings" style="display: none;">
+       <div class="mtm grade-type">
+          <span class="mrl">
+            {{ radios('highYear', {'default':'3年制'}, school.highYear) }}
+          </span>
+          <span>
+            {{ radios('highYear', {'custom':'自定义年级'}, school.highYear) }}
+          </span>
+        </div>
+
+        <div class="mtm grade-list" id="grade-list-high" style="display: none;">
+          <ul class="list-group grade-list-group sortable-list" id="grade-list-group-high" data-role="list">
+          </ul>
+          <div class="input-group">
+            <input class="form-control custom-grade-input" id="custom-grade-input-high" type="text" data-role="item-input" data-url="">
+            <span class="input-group-btn">
+              <button class="btn btn-default btn-save-grade" type="button" data-role="item-add" >添加</button>
+            </span>
+          </div>
+
+          <script type="text/plain" data-role="model">{{ highGrades|json_encode|raw }}</script>
+          <script type="text/x-handlebars-template" data-role="item-template">
+            {% verbatim %}
+              <li class="list-group-item clearfix" data-role="item">
+                <span class="glyphicon glyphicon-resize-vertical sort-handle"></span>
+                <span class="grade-name">{{ name }}</span>
+                <input type="hidden" name="high-grades[]" value="{{name}}|{{id}}">
+                <button  class="close delete-btn" data-role="item-delete" type="button" title="删除" >&times; </button>
+              </li>
+            {% endverbatim %}
+          </script>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <div class="row form-group">
+    <div class="col-md-2 control-label">
+      <label>首页图片</label>
+    </div>
+    <div class="col-md-8 controls">
+      <div id="school-homepage-container" style="margin-bottom: 10px">{% if school.homepagePicture %}<img src="{{ file_url(school.homepagePicture) }}" style="max-width:400px;">{% endif %}</div>
+      <button class="btn btn-default btn-sm" id="school-homepage-upload" type="button" data-url="{{ path('admin_school_homepage_upload') }}">上传</button>
+      <button class="btn btn-default btn-sm" id="school-homepage-remove" type="button" data-url="{{ path('admin_school_homepage_remove') }}" {% if not school.homepagePicture %} style="display:none" {% endif %}>删除</button>
+      <p class="help-block">
+        请上传png, jpg, gif格式的图片文件。推荐尺寸比例：400px * 400px。</p>
+        <input type="hidden" name="homepagePicture" value="{{ school.homepagePicture }}">
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="controls col-md-offset-2 col-md-8">
+        <button type="submit" class="btn btn-primary">提交</button>
+      </div>
+    </div>
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+
+  </form>
+
+  {% endblock %}

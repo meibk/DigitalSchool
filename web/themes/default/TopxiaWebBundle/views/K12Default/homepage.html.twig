@@ -1,0 +1,308 @@
+{% extends 'TopxiaWebBundle::layout.html.twig' %}
+{% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
+
+{% set bodyClass = 'indexpage' %}
+
+{% set script_controller = 'default/homepage' %}
+
+{% set blocks = data('Blocks', {'codes':['home_top_banner'] }) %}
+
+{% block content %}
+	<div class="row">
+		
+        <!-- banner-->
+		{% if homepageSettings.heroSlidesEnabled|default(true) %}
+
+	    <div class="main col-md-12">
+	       <div class="homepage-feature homepage-feature-slides">
+	       	{% if blocks['home_top_banner'] %}
+				{{ blocks['home_top_banner']|raw }}
+			{% else %}
+		        <a href="#"><img src="/assets/img/placeholder/carousel-1140x380-1.jpg"></a>
+				<a href="#"><img src="/assets/img/placeholder/carousel-1140x380-1.jpg"></a>
+				<a href="#"><img src="/assets/img/placeholder/carousel-1140x380-1.jpg"></a>
+		    {% endif %}
+
+	          <div class="cycle-pager"></div>
+	            <div class="slide-nav cycle-prev"><span class="carousel-left"></span></div>
+	            <div class="slide-nav cycle-next"><span class="carousel-right"></span></span>
+	          </div>
+	       </div>
+
+	       <div id="login_float_panel" style="display: none;">
+	       	<div class="pull-right">
+		       	<button class="close" type="button" title="关闭"><span aria-hidden="true">&times;</span></button>
+	       	</div>
+
+		    {% include 'TopxiaWebBundle:K12Default:login-form.html.twig' %}
+		   </div>
+	    </div>
+
+	    {% else %}
+	    	<div class="ptl"></div>
+		{% endif %}
+
+
+	    <!--  students -->
+	    {% if homepageSettings.studentFacesWallEnabled|default(true) %}
+
+		{% set students = data('RecommendStudents',{'count': homepageSettings.studentNum|default(30)}) %}
+		
+		<section class="es-section hidden-sm hidden-xs">
+	      <div class="container">
+	        <div class="section-header clearfix">
+	          <div class="title">{{ homepageSettings.studentTitle|default('学生照片墙') }}</div>
+	        </div>
+
+	        {% if students %}
+
+			{% set index = 0 %}
+			{% set count = students|length|default(0) %}
+
+	        <div class="section-bodyer">
+	          <ul class="photo-wall row">
+	            <li class="col-md-3">
+	              <div class="photo-item data bg-1">
+	                共有<span>{{ statistics['activeLessonCount']|default(0) }}</span>课时<br>
+	                可供在线学习
+	              </div> 
+	            </li>
+	            <li class="col-md-2">
+	              <div class="photo-item">
+	              {% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.largeAvatar, '') }}" alt="">
+	              {% endif %}
+	              </div>
+	            </li>
+	            <li class="col-md-1">
+	              <div class="photo-item">
+	            	{% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.mediumAvatar, '') }}" alt="">
+	                {% endif %}
+	                {% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img  id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.mediumAvatar, '') }}" alt="">
+	                {% endif %}
+	              </div>  
+	            </li>
+	            <li class="col-md-2">
+	              <div class="photo-item">
+	              	{% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.largeAvatar, '') }}" alt="">
+	                {% endif %}
+	              </div>
+	            </li>
+	            <li class="col-md-1">
+	              {% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	              <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.mediumAvatar, '') }}" alt="">
+	              {% endif %}
+	              {% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	              <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.mediumAvatar, '') }}" alt="">
+	              {% endif %}
+	            </li>
+	            <li class="col-md-3">
+	              <div class="photo-item data bg-2">
+	                迄今总共已学完<br>
+	                <span>{{ statistics['totalFinishedLessonCount']|default(0) }}</span>课时
+	              </div>
+	            </li>
+	            <li class="col-md-2">
+	              <div class="photo-item">
+	              	{% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.largeAvatar, '') }}" alt="">
+	                {% endif %}
+	              </div>
+	            </li>
+	            <li class="col-md-1">
+	              <div class="photo-item">
+	              	{% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.mediumAvatar, '') }}" alt="">
+	                {% endif %}
+	                {% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.mediumAvatar, '') }}" alt="">
+	                {% endif %}
+	              </div>  
+	            </li>
+	            <li class="col-md-1">
+	              <div class="photo-item">
+	              	{% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.mediumAvatar, '') }}" alt="">
+	                {% endif %}
+	                {% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.mediumAvatar, '') }}" alt="">
+	                {% endif %}
+	              </div>  
+	            </li>
+	            <li class="col-md-3">
+	              <div class="photo-item data bg-3">
+	                过去24小时共有<br>
+	                <span>{{ statistics['signInCount']|default(0) }}</span>个<br>
+	                学生登录学习
+	              </div>
+	            </li>
+	            <li class="col-md-2">
+	              <div class="photo-item">
+	              	{% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.largeAvatar, '') }}" alt="">
+	                {% endif %}
+	              </div>
+	            </li>
+	            <li class="col-md-1">
+	              <div class="photo-item">
+	              	{% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.mediumAvatar, '') }}" alt="">
+	                {% endif %}
+	                {% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.mediumAvatar, '') }}" alt="">
+	                {% endif %}
+	              </div>  
+	            </li>
+	            <li class="col-md-2">
+	              <div class="photo-item">
+	              	{% if index < count %} {% set student = students[index] %} {% set index = index + 1 %}
+	                <img id="{{ student.number }}" class="img-responsive" src="{{ default_path('avatar', student.largeAvatar, '') }}" alt="">
+	                {% endif %}
+	              </div>
+	            </li>
+	          </ul>
+	        </div>
+
+		    {% else %}
+	            <div class="empty">尚未设置学生用户头像，请在管理后台设置。</div>
+			{% endif %}
+
+	      </div>
+	    </section>
+
+	    {% endif %}
+
+
+		<!--  Articles -->
+		{% if homepageSettings.latestArticleEnabled|default(true) %}
+
+		{% set articles = data('LatestArticles',{'count': homepageSettings.articleNum|default(6)}) %}
+	    
+		<section class="es-section">
+	      <div class="container">
+	        <div class="section-header clearfix">
+	          <div class="title">{{ homepageSettings.articleTitle|default('校园公告') }}</div>
+	          <a href="{{ path('article_show') }}" class="more"><i class="fa fa-ellipsis-h"></i></a>
+	        </div>
+
+	        <div class="section-bodyer">
+	          <div class="notice row">
+
+	          	{% for article in articles %}
+
+		            <div class="col-md-6">
+		              <div class="notice-item clearfix">
+		                <i class="fa fa-bullhorn"></i> 
+		                <a href="{{ path('article_detail', {id:article.id}) }}" {% if article.title|length > 30 %}title="{{ article.title }}" {% endif %}>{{ article.title|sub_text(30) }}</a> 
+		                <span class="date hidden-md hidden-xs">{{ article.updatedTime|date('m-d') }} {{ article.source|default('')}}</span>
+		              </div>
+		            </div>
+		        {% else %}
+		            <div class="empty">尚未设置校园公告，请在管理后台设置。</div>
+	            {% endfor %}
+	            
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+
+	    {% endif %}
+
+	    <!--  teachers -->
+	    {% if homepageSettings.recommendTeachersEnabled|default(true) %}
+
+	    {% set teachers = data('RecommendTeachers',{'count': homepageSettings.teacherNum|default(4)}) %}
+
+	    <section class="es-section">
+	      <div class="container">
+	        <div class="section-header clearfix">
+	          <div class="title">{{ homepageSettings.teacherTitle|default('优秀教师') }}</div>
+	          <a href="{{ path('teacher') }}" class="more"><i class="fa fa-ellipsis-h"></i></a>
+	        </div>
+
+	        <div class="section-bodyer">
+	          <div class="teacher-list row">
+
+	          	{% for teacher in teachers %}
+
+	            <div class="col-md-3 col-sm-6">
+	              <a href="{{ path('user_show', {id:teacher.id}) }}" class="teacher-item">
+	                <div class="teacher-avatar">
+	                  <img src="{{ default_path('avatar', teacher.largeAvatar, '') }}">
+	                  <div class="teacher-name">{{teacher.truename}}</div>
+	                </div>
+	                <div class="teacher-info">
+	                  <p>{{ teacher.about|sub_text(50) }}</p>
+	                </div>
+	              </a>
+	            </div>
+	            {% else %}
+		        	<div class="empty">尚未设置推荐老师，请在管理后台设置。</div>
+	            {% endfor %}
+	            
+	          </div> 
+	        </div>
+
+	      </div>
+	    </section>
+
+		{% endif %}
+
+	    <!--  Groups -->
+
+	    {% if homepageSettings.hotGroupsEnabled|default(true) %}
+
+	    {% set groups = data('HotGroup', {'count':homepageSettings.groupNum|default(4)}) %}
+
+		<section class="es-section">
+	      <div class="container">
+	        <div class="section-header clearfix">
+	          <div class="title">{{ homepageSettings.groupTitle|default('热门兴趣小组') }}</div>
+	          <a href="{{path('group_search_group')}}" class="more"><i class="fa fa-ellipsis-h"></i></a>
+	        </div>
+	        <div class="section-bodyer">
+	          <div class="group-list row">
+
+	          	{% for group in groups %}
+	                {% if group.status=='open' %} 
+
+			            <div class="col-md-3 col-sm-6">
+			              <a href="{{path('group_show',{id:group.id})}}">
+			                <div class="group-item clearfix">
+			                  {% if group.logo %}
+			                  	<img class="group-avatar" src="{{file_path(group.logo)}}">
+			                  {% else %}
+			                  	<img class="group-avatar" src="{{asset('assets/img/default/group.png')}}">
+	                          {% endif %}
+
+			                  <div class="group-info">
+			                    <div class="group-title">
+			                      {{group.title|sub_text(20)}}
+			                    </div>
+			                    <div class="text-muted text-normal">
+			                      <span>{{group.memberNum}}个成员</span>
+			                      <span>{{group.threadNum}}个话题</span>
+			                    </div>
+			                  </div>
+			                </div>
+			              </a>
+			            </div>
+
+	            	{% endif %}
+	            {% else %}
+	            	<div class="empty">尚未设置小组，请在管理后台设置。</div>
+	            {% endfor %}
+
+	            
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+
+	    {% endif %}
+
+	</div>
+{% endblock %}

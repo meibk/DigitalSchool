@@ -1,0 +1,201 @@
+{% extends 'TopxiaWebBundle:My:layout.html.twig' %}
+
+{% block title %}我的教学 - {{ parent() }}{% endblock %}
+
+{% set side_nav = 'my-teaching' %}
+
+{% block main %}
+<div class="panel panel-default panel-col lesson-manage-panel class-table">
+
+  <div class="panel-body">
+    <div class="myteaching-title">
+      <div class="text">待办事项</div>
+    </div><br>
+    <hr>
+    
+    <table class="table table-hover tac">
+      <thead>
+          <tr>
+              <th width="25%" class="tal">课程</th>
+              <th width="25%" class="tac">待批作业</th>
+              <th width="25%" class="tac">待批试卷</th>
+              <th width="25%" class="tac">待解答问题</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for course in courses %}
+          {% if course.classId %}
+            <tr>
+              <td class="tal">
+                <div><a href="{{ path('course_show',{id:course.id}) }}">{{ course.title }}</a></div>
+                <span class="text-muted text-sm">
+                  <a href="{{ path('class_show',{ classId: course.classId })}}">
+                    {{ class_name(classes[course.classId])|default("") }}
+                  </a>
+                </span>
+              </td>
+              <td>
+                {% if pendingHomeworkCounts[course.id] %}
+                  <a href="{{ path('my_teaching_homework_list') }}" title="批改作业" class="badge">
+                    {{ pendingHomeworkCounts[course.id] }}
+                  </a>
+                {% else %}
+                  <span class="text-muted">0</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if pendingTestpaperResultCounts[course.id] %}
+                  <a href="{{ path('course_manage_list_teacher_test_reviewing') }}" title="批改试卷" class="badge">
+                    {{ pendingTestpaperResultCounts[course.id] }}
+                  </a>
+                {% else %}
+                  <span class="text-muted">0</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if pendingQuestionCounts[course.id] %}
+                  <a href="{{path('my_teaching_threads', {type:'question'}) }}" title="解答问题" class="badge">
+                    {{ pendingQuestionCounts[course.id] }}
+                  </a>
+                {% else %}
+                  <span class="text-muted">0</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endif %}
+        {% else %}
+          <tr class="empty"><td colspan="20">暂无在教课程</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="myteaching-title">
+      <div class="text">学习进度</div>
+      <div class="pull-right">
+        <form>
+          {% set dateRanges = {
+              '0': '今天',
+              '1': '昨天',
+              '2': '前天',
+              '3':'三天内',
+              '7':'一周内',
+              '30':'一月内'
+            }
+          %}
+          <select class="form-control" name="dateRange" onchange="this.form.submit();" >
+            {{ select_options(dateRanges, app.request.query.get('dateRange')) }}
+          </select>
+        </form>
+      </div>
+    </div>
+    <br>
+    <hr>
+    <table class="table table-hover tac my-teaching-status">
+      <thead>
+          <tr>
+              <th width="25%" class="tal">课程</th>
+              <th width="25%" class="tac">课时完成情况</th>
+              <th width="25%" class="tac">作业完成情况</th>
+              <th width="25%" class="tac">作业正确率</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for course in courses %}
+          {% if course.classId %}
+            <tr>
+              {# 课程名 #}
+              <td class="tal">
+                <div><a href="{{ path('course_show',{id:course.id}) }}">{{ course.title }}</a></div>
+                <span class="text-muted text-sm">
+                  <a href="{{ path('class_show',{ classId: course.classId })}}">
+                    {{ class_name(classes[course.classId])|default("") }}
+                  </a>
+                </span>
+              </td>
+
+              {# 课时完成情况 #}
+              <td>
+                {% if finishedLessonCounts[course.id]|default(null) %}
+                  {% set percentage = finishedLessonPercentages[course.id] %}
+
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{  percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{  percentage }}%;">
+                      {{  percentage }}%
+                    </div>
+                  </div>
+                  <div class="text-muted text-sm">
+                    <a data-toggle="modal" data-url="{{ path('course_members', {id:course.id}) }}" href="#modal" title="点击查看每个学生的详细学习进度">
+                      {{ finishedLessonCounts[course.id]|default(null) }}
+                    </a>
+                  </div>
+                {% else %}
+                  <div class="text-muted text-sm">未安排课时</div>
+                {% endif %}
+              </td>
+
+              {# 作业完成情况 #}
+              <td>
+                {% if finishedHomeworkCounts[course.id]|default(null) %}
+                  {% set percentage = finishedHomeworkPercentages[course.id] %}
+
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{  percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{  percentage }}%;">
+                      {{  percentage }}%
+                    </div>
+                  </div>
+                  <div class="text-muted text-sm">{{ finishedHomeworkCounts[course.id]|default(null) }}</div>
+                    
+                {% else %}
+                  <div class="text-muted text-sm">未安排作业</div>
+                {% endif %}
+              </td>
+
+              {# 作业正确率 #}
+              <td>
+                {% if homeworkRightItemCounts[course.id]|default(null) %}
+                  {% set percentage = homeworkRightItemPercentages[course.id] %}
+
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{  percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{  percentage }}%;">
+                      {{  percentage }}%
+                    </div>
+                  </div>
+                  <div class="text-muted text-sm">{{ homeworkRightItemCounts[course.id]|default(null) }}</div>
+                {% elseif finishedHomeworkCounts[course.id]|default('-1') == 0 %}
+                  <div class="text-muted text-sm">无已完成作业</div>    
+                {% else %}
+                  <div class="text-muted text-sm">未安排作业</div>
+                {% endif %}
+              </td>
+            </tr>
+          {% endif %}
+        {% else %}
+          <tr class="empty"><td colspan="20">暂无在教课程</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  
+  </div>
+
+  <div class="panel-body">
+    {% if manageClasses %}
+      <div class="myteaching-title">
+        <div class="text">我的班级</div>
+        {# <div class="num"><span class="label label-success">{{manageClasses|length}}</span></div> #}
+      </div><br>
+      <hr>
+      <div class="row">
+        {% for manageClass in manageClasses %}
+          {% if manageClass.enabled %}
+            <div class="col-sm-6 col-md-3">
+              {% include 'TopxiaWebBundle:MyTeaching:class-grid.html.twig' %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

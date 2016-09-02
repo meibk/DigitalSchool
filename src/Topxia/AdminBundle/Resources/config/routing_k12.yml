@@ -1,0 +1,232 @@
+admin_user_import:
+    pattern:  /user/import/
+    defaults: { _controller: TopxiaAdminBundle:UserImporter:importUserInfoByExcel }
+
+admin_user_import_to_base:
+    pattern:  /user/import/to/base
+    defaults: { _controller: TopxiaAdminBundle:UserImporter:importUserDataToBase }
+
+admin_userImport:
+    pattern:  /userimporter/index
+    defaults: { _controller: TopxiaAdminBundle:UserImporter:index }
+
+admin_school_teacher_name:
+    pattern:  /school/teachers
+    defaults: { _controller: TopxiaAdminBundle:School:teacherName }
+    methods: [GET]
+
+admin_school_setting:
+    pattern:  /school/setting
+    defaults: { _controller: TopxiaAdminBundle:School:schoolSetting }
+
+admin_school_classes_setting:
+    pattern:  /school/classes/setting
+    defaults: { _controller: TopxiaAdminBundle:School:classSetting }
+
+admin_school_point_setting:
+    pattern:  /school/point/setting
+    defaults: { _controller: TopxiaAdminBundle:School:pointSetting }
+
+admin_school_knowledge_setting:
+    pattern:  /school/knowledge/setting
+    defaults: { _controller: TopxiaAdminBundle:School:knowledgeSetting }
+
+admin_school_homepage_setting:
+    pattern:  /school/homepage/setting
+    defaults: { _controller: TopxiaAdminBundle:School:homepageSetting }
+
+admin_school_eduMaterial_setting:
+    pattern:  /school/{schoolType}/eduMaterial/setting
+    defaults: { _controller: TopxiaAdminBundle:School:eduMaterialSetting }
+
+admin_school_subject_add:
+    pattern:  /school/subject/add
+    defaults: { _controller: TopxiaAdminBundle:School:subjectAdd }
+
+admin_school_subject_update:
+    pattern:  /school/subject/{subjectId}/update
+    defaults: { _controller: TopxiaAdminBundle:School:subjectUpdate }
+
+admin_school_eduMaterial_update:
+    pattern:  /school/eduMaterial/update
+    defaults: { _controller: TopxiaAdminBundle:School:eduMaterialUpdate }
+    methods: [POST]
+
+admin_school_homepage_upload:
+    pattern:  /school/homepage/upload
+    defaults: { _controller: TopxiaAdminBundle:School:homePageUpload }
+
+admin_school_homepage_remove:
+    pattern:  /school/homepage/remove
+    defaults: { _controller: TopxiaAdminBundle:School:homePageRemove }
+
+admin_school_class_editor:
+    pattern:  /school/class/editor
+    defaults: { _controller: TopxiaAdminBundle:School:classEditor }
+
+admin_school_class_delete:
+    pattern:  /school/class/delete/{classId}
+    defaults: { _controller: TopxiaAdminBundle:School:classDelete }
+
+admin_school_class_course_manage:
+    pattern:  /school/class/{classId}/course/manage
+    defaults: { _controller: TopxiaAdminBundle:School:classCourseManage }
+
+admin_school_class_member_manage:
+    pattern:  /school/class/{classId}/member/manage
+    defaults: { _controller: TopxiaAdminBundle:School:classMemberManage }
+
+admin_school_class_course_add:
+    pattern:  /school/class/{classId}/course/add
+    defaults: { _controller: TopxiaAdminBundle:School:classCourseAdd }
+
+admin_school_class_course_remove:
+    pattern:  /school/class/{classId}/course/{courseId}/remove
+    defaults: { _controller: TopxiaAdminBundle:School:classCourseRemove }
+
+admin_school_class_icon_upload:
+    pattern:  /school/classes/icon/upload
+    defaults: { _controller: TopxiaAdminBundle:School:classIconUpload }
+
+admin_school_class_backgroundImg_upload:
+    pattern:  /school/classes/backgroundImg/upload
+    defaults: { _controller: TopxiaAdminBundle:School:classBackgroundImgUpload }
+
+admin_school_class_student:
+    pattern:  /school/class/{classId}/student
+    defaults: { _controller: TopxiaAdminBundle:School:studentList }
+
+admin_school_class_student_import:
+    pattern:  /school/class/{classId}/student/import
+    defaults: { _controller: TopxiaAdminBundle:School:studentImport }
+
+admin_school_class_student_remove:
+    pattern:  /school/class/{classId}/student/{userId}/remove
+    defaults: { _controller: TopxiaAdminBundle:School:studentRemove }
+
+admin_user_import_check:
+    pattern:  /{type}/import/check
+    defaults: { _controller: TopxiaAdminBundle:UserImporter:checkUser }
+
+admin_user_import:
+    pattern:  /{type}/import
+    defaults: { _controller: TopxiaAdminBundle:UserImporter:importUser }
+
+admin_teacher:
+    pattern:  /teacher
+    defaults: { _controller: TopxiaAdminBundle:Teacher:index }
+
+admin_student:
+    pattern:  /student
+    defaults: { _controller: TopxiaAdminBundle:Student:index }
+
+admin_student_match:
+    pattern:  /student/match
+    defaults: { _controller: TopxiaAdminBundle:Student:match }
+
+admin_admin:
+    pattern:  /admin
+    defaults: { _controller: TopxiaAdminBundle:Admin:index }
+
+admin_admin_create:
+    pattern:  /admin/create
+    defaults: { _controller: TopxiaAdminBundle:Admin:create }
+
+admin_admin_addAdminRole:
+    pattern:  /admin/{id}/addAdminRole
+    defaults: { _controller: TopxiaAdminBundle:Admin:addAdminRole }
+
+admin_admin_cancleAdminRole:
+    pattern:  /admin/{id}/cancleAdminRole
+    defaults: { _controller: TopxiaAdminBundle:Admin:cancleAdminRole }
+
+admin_parent:
+    pattern:  /parent
+    defaults: { _controller: TopxiaAdminBundle:Parent:index }
+
+admin_parent_create:
+    pattern:  /parent/create
+    defaults: { _controller: TopxiaAdminBundle:Parent:create }
+
+admin_parent_edit:
+    pattern:  /parent/{id}/edit
+    defaults: { _controller: TopxiaAdminBundle:Parent:edit }
+
+admin_parent_create_childNumber_check:
+    pattern:  /parent/create/childNumber/check
+    defaults: { _controller: TopxiaAdminBundle:Parent:childNumberCheck }
+
+admin_class_list:
+    pattern:  /class/list
+    defaults: { _controller: TopxiaAdminBundle:Class:list }
+
+admin_user:
+    pattern:  /user
+    defaults: { _controller: TopxiaAdminBundle:User:index }
+
+admin_user_create:
+    pattern:  /user/create
+    defaults: { _controller: TopxiaAdminBundle:User:create }
+
+admin_user_create_number_check:
+    pattern:  /user/create/number/check
+    defaults: { _controller: TopxiaAdminBundle:User:numberCheck }
+
+admin_user_create_email_check:
+    pattern:  /user/create/email/check
+    defaults: { _controller: TopxiaAdminBundle:User:emailCheck }
+
+admin_user_create_nickname_check:
+    pattern:  /user/create/nickname/check
+    defaults: { _controller: TopxiaAdminBundle:User:nicknameCheck }
+
+admin_user_create_mobile_check:
+    pattern:  /user/create/mobile/check
+    defaults: { _controller: TopxiaAdminBundle:User:mobileCheck }
+
+admin_user_show:
+    pattern:  /user/{id}
+    defaults: { _controller: TopxiaAdminBundle:User:show }
+
+admin_user_edit:
+    pattern:  /user/{id}/edit
+    defaults: { _controller: TopxiaAdminBundle:User:edit }
+
+admin_user_lock:
+    pattern:  /user/{id}/lock
+    defaults: { _controller: TopxiaAdminBundle:User:lock }
+    methods:  [POST]
+
+admin_user_select:
+    pattern:  /select/user
+    defaults: { _controller: TopxiaAdminBundle:User:select }
+    methods:  [GET]
+
+admin_user_unlock:
+    pattern:  /user/{id}/unlock
+    defaults: { _controller: TopxiaAdminBundle:User:unlock }
+    methods:  [POST]
+
+admin_user_roles:
+    pattern:  /user/{id}/roles
+    defaults: { _controller: TopxiaAdminBundle:User:roles }
+
+admin_user_avatar:
+    pattern:  /user/{id}/avatar
+    defaults: { _controller: TopxiaAdminBundle:User:avatar }
+
+admin_user_avatar_crop:
+    pattern:  /user/{id}/avatar/crop
+    defaults: { _controller: TopxiaAdminBundle:User:avatarCrop }
+
+admin_user_guide_index:
+    pattern:  /user/guide/index
+    defaults: { _controller: TopxiaAdminBundle:UserGuide:index }
+
+admin_user_guide_show:
+    pattern:  /user/guide/show
+    defaults: { _controller: TopxiaAdminBundle:UserGuide:show }
+
+admin_user_guide_complete:
+    pattern:  /user/guide/complete
+    defaults: { _controller: TopxiaAdminBundle:UserGuide:complete }

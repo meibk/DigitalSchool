@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    今日任务
+    {% if allTasks|length > 0 %}
+      <span class="badge">{{ allTasks|length }}</span>
+    {% endif %}
+  </div>
+  <div class="panel-body">
+    <ul class="media-list task-list">
+      {% for task in allTasks %}
+        <li class="media task">
+          <a href="{{ path('course_learn', {id:task['courseId']}) ~ '#lesson/' ~ task['lessonId'] }}" target="_blank" {% if task['displayTitle']|length > 18 %} title="{{ task['displayTitle'] }}" {% endif %} >
+
+          {% if task['type'] == 'lesson' %}
+            课时
+          {% elseif task['type'] == 'homework' %}
+            作业
+          {% elseif task['type'] == 'testpaper' %}
+            试卷
+          {% endif %}
+          :{{ task['displayTitle']|sub_text(18) }}
+          </a>
+
+          <span class="point pull-right" title="{{ task['score'] }}学分">+{{ task['score'] }}</span>
+        </li>
+      {% else %}
+        <li class="empty-item">今天没有任务</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

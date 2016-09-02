@@ -1,0 +1,13 @@
+<div class="myteaching-thread">
+  <a href="{{path('user_show',{id:threadUser.id|default(0)})}}">
+    <img class="pull-left"  width="48" height="48" src="{{file_path(threadUser.smallAvatar|default(null), 'avatar.png')}}" alt="{{threadUser.truename|default('用户已删除')}}">
+  </a>
+  <div class="text">
+    <div class="title">
+      <a href="{{ path('course_thread_show', {courseId:thread.courseId, id:thread.id}) }}">{{thread.title}}</a>
+    </div>
+    <div class="name">
+      <a href="{{ path('user_show', {id:threadUser.id|default(0)}) }}">{{threadUser.truename|default('用户已删除')}}</a>
+    </div>
+  </div>
+</div><br><br><hr>

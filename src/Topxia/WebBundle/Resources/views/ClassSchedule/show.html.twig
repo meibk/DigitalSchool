@@ -1,0 +1,23 @@
+{% extends 'TopxiaWebBundle:Class:layout.html.twig' %}
+ 
+{% set classNav = 'schedule' %}
+
+{% block class_body %}
+
+
+<div class="row">
+  <div class="col-md-9">
+    <div id="course-schedule-panel" class="panel panel-default">
+      <div class="panel-body">
+        {% include 'TopxiaWebBundle:ClassSchedule:schedule-block.html.twig' %}
+      </div>
+    </div>
+  
+  </div>
+  <div class="col-md-3 course-display">
+    {{ render(controller('TopxiaWebBundle:ClassSchedule:courses', {classId:class.id})) }}
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+EduSoho开源网络课堂安装说明：
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+一、配置需求
+
+官方推荐的配置是LNMP,即Linux+Nginx+MySQL+PHP。更多请查看帮助中心
+
+1： 选择操作系统（Linux）；推荐使用Ubuntu，Fedora，CentOS，Gentoo。
+
+2： 选择Web服务器（Nginx或Apache2）；Web服务器，官方推荐：Nginx或Apache2。
+
+关于Nginx：
+
+下载地址： http://nginx.org/en/download.html ，版本推荐： 1.0以上。
+
+关于Apache2：
+
+下载地址： http://httpd.apache.org/download.cgi ，推荐版本： 2.0以上。
+
+3: 选择MySQL数据库
+    
+MySQL数据库推荐版本：5.0以上。下载地址： http://www.mysql.com/downloads/ 。
+
+4：选择PHP版本
+    
+下载地址： http://cn2.php.net/downloads.php  ，版本： >= 5.3.17。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+二、安装教程
+
+1：详细安装教程详见：http://www.qiqiuyu.com/course/explore/install
+
+2： Edusoho官方技术支持渠道：
+    
+    更多详细的产品文档请查看软件安装包下的doc目录；
+
+    加入官方交流QQ群：221927826 群内有相应的客服人员指导安装，进群请注明:“新安装”；
+    
+    也可在 Edusoho官方技术支持小组：http://www.qiqiuyu.com/group/1 提出技术问题和建议，会有工作人员给予解答和回应。

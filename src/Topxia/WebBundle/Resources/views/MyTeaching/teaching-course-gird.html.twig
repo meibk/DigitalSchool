@@ -1,0 +1,50 @@
+<div class="col-md-6 teaching-course">
+  <div class="course-border class-course-grid">
+    <a href="{{ path('course_show',{id:course.id}) }}">
+      {% if course.compulsory %}
+        <span class="label label-success compulsory">必修</span>
+      {% else %}
+        <span class="label label-warning compulsory">选修</span>
+      {% endif %}
+
+      {% if course.status == 'closed' %}
+        <span class="label label-danger compulsory">已关闭</span>
+      {% endif %}
+
+      <img class="course-picture img-thumbnail" height="114" alt="{{ course.title }}" src="{{ file_path(course.middlePicture, 'course-large.png') }}">
+    </a>
+  </div>
+  <div class="course-name">
+    <div class="course-title" title="{{ course.title }}">
+      <a href="{{ path('course_show',{id:course.id}) }}">
+        {{ course.title }}
+      </a>
+    </div>
+    <div class="class-name">
+      {% if class|default(null) %}
+        <a href="{{ path('class_show',{classId:course.classId} ) }}">
+          {{class_name(class)}}
+        </a><br>
+
+        {% if course.structureChanged %}
+          <span class="label label-warning" title="已断开与公有课程的关联">私有课程</span>
+        {% else %}
+          <span class="label label-success" title="公有课程的改动会自动复制到该课程">关联课程</span>
+        {% endif %}
+      {% else %}
+        <span class="label label-info" title="模板课程，所有更新会自动复制至关联课程">公有课程</span><br><br>
+      {% endif %}
+    </div>
+
+    <div class="course-lesson-student">
+      课时：{{course.lessonNum}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      学生：
+      {% if course.studentNum==0 %}
+        {{course.studentNum}}
+      {% else %}
+        <a data-toggle="modal" data-url="{{ path('course_members', {id:course.id}) }}" href="#modal">{{course.studentNum}}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

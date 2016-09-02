@@ -1,0 +1,44 @@
+{% extends 'TopxiaWebBundle::layout.html.twig' %}
+
+{% block title %}登录 - {{ parent() }}{% endblock %}
+
+{% set script_controller = 'default/login' %}
+
+{% set bodyClass = 'login-page' %}
+
+{% block body %}
+
+<div class="login-box">
+  <div class="login-header">
+    <a href="{{ path('homepage') }}">
+      {% if setting('site.logo') %}
+        <img src="{{ asset(setting('site.logo')) }}" class="logo">
+      {% else %}
+        <h1>{{ setting('site.name', 'EDUSOHO') }}</h1>
+      {% endif %}
+    </a>
+  </div>
+  <div class="login-body">
+    <div class="login-picture" style="background-image: url({{ file_url(setting('school.homepagePicture'),'login-picture.jpg') }})"></div>
+
+    {% include 'TopxiaWebBundle:K12Default:login-form.html.twig' %}
+
+  </div>
+
+</div>
+
+
+<div class="row row-6" style="display:none;">
+  <div class="col-md-6 col-md-offset-3">
+
+    <div class="panel panel-default panel-page">
+      <div class="panel-heading"><h2>登录</h2></div>
+
+
+
+      {% include 'TopxiaWebBundle:Login:social-logins-block.html.twig' %}
+    </div>
+
+  </div>
+</div>
+{% endblock %}

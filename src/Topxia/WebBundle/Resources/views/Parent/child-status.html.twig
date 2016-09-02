@@ -1,0 +1,26 @@
+{% extends 'TopxiaWebBundle:Parent:layout.html.twig' %}
+
+{% block title %}学习动态 - {{ parent() }}{% endblock %}
+
+{% set script_controller = 'parent/child-status' %}
+{% set side_nav = 'parent-child-status' %}
+
+{% block main %}
+
+  <div class="panel panel-default panel-col" id="child-learning-status">
+    <div class="panel-heading">
+      学习动态
+    </div>
+    <div class="panel-body">
+      <div class="timeline">
+        {% include 'TopxiaWebBundle:Parent:child-status-item.html.twig' %}
+      </div>
+      <input type="hidden" id="statusCount" value="{{statusCount}}">
+      <input type="hidden" id="count" value="{{count}}">
+      {% if moreBtnShow %}
+        <a href="javascript:;" data-url="{{path('parent_child_more_status',{childId:selectedChild.id})}}" id="moreStatusesBtn" class="text-center"><div class="text-center">+查看更多</div></a>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

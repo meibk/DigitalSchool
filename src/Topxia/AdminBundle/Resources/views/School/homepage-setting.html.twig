@@ -1,0 +1,154 @@
+{% extends 'TopxiaAdminBundle:School:layout.html.twig' %}
+
+{% block title %}首页设置 - {{ parent() }}{% endblock %}
+
+{% set menu = 'homepageSetting' %}
+{% set script_controller = 'school/homepage' %}
+
+{% block main %}
+
+
+
+
+{{ web_macro.flash_messages() }}
+<div class="page-header">
+  <h1>学校首页设置</h1>
+</div>
+
+<form class="form-horizontal" id="point-form" method="post">
+  <fieldset>
+    <legend>首页轮播图</legend>
+    <div class="row form-group">
+      <div class="col-md-2 control-label">
+      </div>
+      <div class="col-md-1 checkboxs">
+        <input type="checkbox" name="heroSlidesEnabled" value="1" title="是否启用轮播图"
+          {% if settings['heroSlidesEnabled']|default('1') == '1' %} 
+            checked = "true"
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div id="heroSlidesEditLink" class="pts pbs">首页轮播图请至 <a href="{{ url('admin_block') }}"> 内容 -> 编辑区管理</a> 进行设置</div>
+      </div>
+    </div>
+
+  </fieldset>
+  <fieldset>
+    <legend>首页内容</legend>
+    <div class="row form-group">
+      <div class="col-md-2 control-label">
+      </div>
+      <div class="col-md-1">
+        启用
+      </div>
+      <div class="col-md-3">
+        自定义标题
+      </div>
+      <div class="col-md-2">
+        显示数量
+      </div>
+      
+    </div>
+    <div class="row form-group">
+      <div class="col-md-2 control-label">
+        <label for="studentFaces">学生照片墙</label>
+      </div>
+      <div class="col-md-1 checkboxs">
+        <input type="checkbox" name="studentFacesWallEnabled" value="1" title="是否启用学生照片墙"
+          {% if settings['studentFacesWallEnabled']|default('1') == '1' %} 
+            checked = "true"
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-md-3 controls">
+        <input type="text" id="studentFaces" name="studentTitle" class="form-control" value="{{ settings['studentTitle']|default('') }}">
+      </div>
+      <div class="col-md-2 controls">
+        <input type="text" name="studentNum" class="form-control" value="{{ settings['studentNum'] }}">
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-md-2 control-label">
+        <label for="recommendTeachers">优秀教师</label>
+      </div>
+      <div class="col-md-1 checkboxs">
+        <input type="checkbox" name="recommendTeachersEnabled" value="1" title="是否启用优秀教师"
+          {% if settings['recommendTeachersEnabled']|default('1') == '1' %} 
+            checked = "true"
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-md-3 controls">
+        <input type="text" id="recommendTeachers" name="teacherTitle" class="form-control" value="{{ settings['teacherTitle']|default('') }}">
+      </div>
+      <div class="col-md-2 controls">
+        <input type="text" name="teacherNum" class="form-control" value="{{ settings['teacherNum']}}">
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    {# <legend>右栏</legend>
+    <div class="row form-group">
+      <div class="col-md-2 control-label">
+      </div>
+      <div class="col-md-3 controls">
+        自定义标题
+      </div>
+      <div class="col-md-2">
+        显示数量
+      </div>
+      
+    </div> #}
+    <div class="row form-group">
+      <div class="col-md-2 control-label">
+        <label for="articleTitle">校园公告</label>
+      </div>
+      <div class="col-md-1 checkboxs">
+        <input type="checkbox" name="latestArticleEnabled" value="1" title="是否启用校园公告"
+          {% if settings['latestArticleEnabled']|default('1') == '1' %} 
+            checked = "true"
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-md-3 controls">
+        <input type="text" id="articleTitle" name="articleTitle" class="form-control" value="{{ settings['articleTitle']|default('') }}">
+      </div>
+      <div class="col-md-2 controls">
+        <input type="text" name="articleNum" class="form-control" value="{{ settings['articleNum'] }}">
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-md-2 control-label">
+        <label for="groupTitle">热门兴趣小组</label>
+      </div>
+      <div class="col-md-1 checkboxs">
+        <input type="checkbox" name="hotGroupsEnabled" value="1" title="是否启用热门兴趣小组"
+          {% if settings['hotGroupsEnabled']|default('1') == '1' %} 
+            checked = "true"
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-md-3 controls">
+        <input type="text" id="groupTitle" name="groupTitle" class="form-control" value="{{ settings['groupTitle']|default('') }}">
+      </div>
+      <div class="col-md-2 controls">
+        <input type="text" name="groupNum" class="form-control" value="{{ settings['groupNum'] }}">
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="row form-group">
+    <div class="controls col-md-offset-2 col-md-8">
+      <button type="submit" class="btn btn-primary">保存</button>
+    </div>
+  </div>
+
+  <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+
+</form>
+
+{% endblock %}

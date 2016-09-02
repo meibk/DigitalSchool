@@ -1,0 +1,74 @@
+{% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
+{% set modal_class = 'modal-custom-1' %}
+<div class="modal-dialog{% if modal_class|default('') %} {{ modal_class }}{% endif %}">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">欢迎安装使用 EduSoho 校园版</h4>
+    </div>
+    <div class="modal-body">
+
+      <input type="hidden" id="guideIndex" value="0">
+      <input type="hidden" id="guideContent" value="{{steps[0].content}}">
+      <div class="guide-step0-title">
+        为了使您能更好的使用ES校园版，请按照以下步骤完成网站设置，创建<span>第一个课程、第一个班级</span>
+      </div>
+
+      {% for step in steps %}
+        <div class="row">
+          <div class="col-md-offset-2 col-md-8">
+              <button type="button" class="{% if loop.index is odd %}btn-odd {% endif %}btn btn-default btn-lg btn-block guide-step0-btn" disabled="disabled" style="font-size: 14px;color:#393939">
+                {{step.content}}
+              </button>
+          </div>
+        </div>
+        {% if loop.index<6 %}
+          <div class="row text-center">
+            <span class="glyphicon glyphicon-arrow-down guide-glyphicon"></span>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+    {% if not hide_footer|default(false) %}
+      <div class="modal-footer">
+        <button data-url="{{path('admin_user_guide_show')}}" data-index="0" type="button" class="btn btn-primary view-step" >开始设置</button>
+        <script>app.load('user-guide/main-modal')</script>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+
+{# {% block body %}
+  <input type="hidden" id="guideIndex" value="0">
+  <input type="hidden" id="guideContent" value="{{steps[0].content}}">
+  <h4>欢迎安装使用 EduSoho 校园版</h4>
+  <div style="text-indent:2em;">
+    为了使您能更好的使用ES校园版，请按照以下步骤完成网站设置，创建第一个课程、第一个班级
+
+    {% for step in steps %}
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <button type="button" class="btn btn-default btn-lg btn-block" disabled="disabled" style="font-size: 14px;color:#000">
+              {{step.content}}
+            </button>
+        </div>
+      </div>
+      <div class="row text-center">
+        <span class="glyphicon glyphicon-arrow-down"></span>
+      </div>
+    {% endfor %}
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+        <button type="button" class="btn btn-default btn-lg btn-block" disabled="disabled" style="font-size: 14px;color:#000">
+          开始使用
+        </button>
+      </div>
+    </div>
+  </div>
+{% endblock %} #}
+{# 
+{% block footer %}
+  <button data-url="{{path('admin_user_guide_show')}}" data-index="0" type="button" class="btn btn-primary view-step" >开始设置</button>
+  <script>app.load('user-guide/main-modal')</script>
+{% endblock %} #}

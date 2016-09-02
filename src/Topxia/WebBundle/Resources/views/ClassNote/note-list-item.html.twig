@@ -1,0 +1,55 @@
+<li class="media class-note-item">
+	<a class="pull-left" href="{{ path('user_show', {id:user.id}) }}">
+	  <img class="media-object pull-left"  width="48" height="48" src="{{file_path(user.smallAvatar, 'avatar.png')}}" alt="{{user.truename}}">
+	</a>
+	<div class="media-body">
+    <a href="{{ path('user_show', {id:user.id}) }}">
+	    <h4 class="media-heading">{{user.truename}}</h4>
+    </a>
+	  <div class="short-long-text">
+      <div class="short-text">
+      	{{ note.content|plain_text(100) }} <span class="trigger">(展开)</span>
+      </div>
+      <div class="long-text">
+      	{{ note.content|raw }} <span class="trigger">(收起)</span>
+      </div>
+    </div>
+    <div class="class-note-like">
+      &nbsp;
+      <input type="hidden" value="{{userLike.id|default(null)}}" class="likeShowVar">
+      
+      <a class="like" href="javascript:;" data-url="{{ path('class_notes_like', {noteId:note.id}) }}"><span class="pull-right glyphicon glyphicon-thumbs-up"></span></a>
+      
+      <a class="cancleLike" href="javascript:;" data-url="{{ path('class_notes_cancle_like', {noteId:note.id}) }}" style="color: green;"><span class="pull-right glyphicon glyphicon-thumbs-up"></span></a>
+    </div>
+
+    <div class="class-note-like-member">
+      &nbsp;  
+      <span class="pull-right text-sm">
+        {% if noteLike|length >4 %}
+          {% for i in 0..3 %}
+            <a href="{{ path('user_show', {id:noteLike[i].userId}) }}">{{noteLike[i].truename}}</a>{% if loop.last %}等{{noteLike|length}}人赞过{% else %}、{% endif %}
+          {% endfor %}
+        {% else %}
+          {% for likeUser in noteLike %}
+            <a href="{{ path('user_show', {id:likeUser.userId}) }}">{{likeUser.truename}}</a>{% if loop.last %}赞过{% else %}、{% endif %}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </div>
+
+    <div class="text-sm mts">
+    	<span class="text-muted text-sm pull-right">
+    		{{ note.createdTime|date('Y-n-d H:i') }}
+    	</span>	
+      {% if course %}
+        <a href="{{ path('course_show', {id:course.id}) }}" class="text-success" target="_blank">{{ course.title }}</a>
+        {% if lesson %}
+          <span class="text-muted mhs">&raquo;</span>
+          <a class="text-success"  href="{{ path('course_learn', {id:lesson.courseId}) }}#lesson/{{lesson.id}}" target="_blank">课时{{lesson.number}}：{{ lesson.title }}</a>
+				{% endif %}
+      {% endif %}
+    </div>
+
+	</div>
+</li>

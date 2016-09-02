@@ -1,0 +1,24 @@
+<li>
+  {% if status.time=='今天' %}
+    <span class="time">
+      {{status.createdTime|smart_time}}
+    </span>
+  {% endif %}
+  {% if status.type=='learned_lesson' %}
+    <span class="message">
+      学习了课时 
+      <a class=" title" href="{{ path('course_learn', {id:status.properties.course.id}) ~ '#lesson/' ~ status.properties.lesson.id}}" title="{{ status.properties.lesson.title }}" data-id="{{ status.properties.lesson.id }}" data-experience="" style="white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">
+        《{{ status.properties.lesson.title }}》
+      </a>
+    </span>
+  {% elseif status.type=='finished_testpaper' %}
+    <span class="message">
+      完成了考试<a href="{{ path('course_manage_test_results', {id: status.properties.result.id}) }}">《{{ status.properties.testpaper.name }}》</a>
+    </span>
+  {% else %}
+    <span class="message">
+      加入了课程<a href="{{ path('course_show', {id: status.properties.course.id}) }}">《{{ status.properties.course.title }}》</a>
+    </span>
+  {% endif %}
+</li>
+

@@ -1,0 +1,22 @@
+      {# 最新资讯 #}
+      {% set articles = data('LatestArticles',{'count':4}) %}
+      {% if articles %}
+        <div class="es-box news">
+          <div class="es-box-heading">
+            <h2>最新资讯</h2>
+            <a class="pull-right" href="{{ path('article_show') }}">更多&gt;</a>
+          </div>
+          <div class="es-box-body">
+            <ul class="row">
+            {% for article in articles %}
+              {% if article %}
+                <li class="col-md-6">
+                  <em>{{ article.updatedTime|date('m-d H:i') }} </em>
+                  <a href="{{ path('article_detail', {id:article.id}) }}"> <span>[{{ article.category.name }}]</span>{{ article.title }} </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endif %}

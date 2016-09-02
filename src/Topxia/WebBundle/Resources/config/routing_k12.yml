@@ -1,0 +1,178 @@
+homepage:
+    pattern:  /
+    defaults: { _controller: TopxiaWebBundle:K12Default:index }
+
+first_password:
+    pattern:  /first/password
+    defaults: { _controller: TopxiaWebBundle:K12Default:password }
+
+login:
+    pattern:  /login
+    defaults: { _controller: TopxiaWebBundle:K12Default:login }
+
+my_teaching:
+    pattern: /my/teaching
+    defaults: { _controller: TopxiaWebBundle:MyTeaching:teaching }
+
+my_class:
+    pattern: /my/class
+    defaults: { _controller: TopxiaWebBundle:K12Default:myClass }
+
+my_teaching_courses:
+    pattern: /my/teaching/courses/{classId}/class
+    defaults: { _controller: TopxiaWebBundle:MyTeaching:teachingCourses }
+
+my_teaching_threads:
+    pattern: /my/teaching/threads/{type}
+    defaults: { _controller: TopxiaWebBundle:MyTeaching:threads }
+
+my_teaching_task:
+    pattern: /my/teaching/myTasks
+    defaults: { _controller: TopxiaWebBundle:MyTeaching:myTasks }
+
+my_teaching_finished_lesson_sdutdents:
+    pattern: /my/teaching/lesson/finished/students
+    defaults: { _controller: TopxiaWebBundle:MyTeaching:getFinshedLessonStudents }
+
+user_sign:
+    pattern:  /sign/{classId}/{userId}
+    defaults: { _controller: TopxiaWebBundle:Sign:sign }
+
+signed_records:
+    pattern:  /sign/{classId}/{userId}/records
+    defaults: { _controller: TopxiaWebBundle:Sign:getSignedRecordsByPeriod }
+
+my_tasks:
+    pattern: /my/tasks
+    defaults: { _controller: TopxiaWebBundle:class:myTasks }
+
+class_show:
+    pattern: /class/{classId}
+    defaults: { _controller: TopxiaWebBundle:Class:show }
+
+class_courses:
+    pattern: /class/{classId}/courses
+    defaults: { _controller: TopxiaWebBundle:ClassCourses:list }
+
+class_threads:
+    pattern:  /class/{classId}/thread
+    defaults: { _controller: TopxiaWebBundle:ClassThread:list }
+
+class_thread_create:
+    pattern:  /class/{classId}/thread/create
+    defaults: { _controller: TopxiaWebBundle:ClassThread:create }
+
+class_thread_show:
+    pattern:  /class/{classId}/thread/{threadId}
+    defaults: { _controller: TopxiaWebBundle:ClassThread:show }
+
+class_thread_post:
+    pattern:  /class/{classId}/thread/{threadId}/post
+    defaults: { _controller: TopxiaWebBundle:ClassThread:post }
+
+class_thread_edit:
+    pattern:  /class/{classId}/thread/{threadId}/edit
+    defaults: { _controller: TopxiaWebBundle:ClassThread:edit }
+
+class_thread_post_delete:
+    pattern:  /class/{classId}/thread/{threadId}/post/{postId}/delete
+    defaults: { _controller: TopxiaWebBundle:ClassThread:deletePost }
+    methods: [POST]
+
+class_thread_post_edit:
+    pattern:  /class/{classId}/thread/{threadId}/post/{postId}/edit
+    defaults: { _controller: TopxiaWebBundle:ClassThread:editPost }
+
+class_thread_stick:
+    pattern:  /class/{classId}/thread/{threadId}/stick
+    defaults: { _controller: TopxiaWebBundle:ClassThread:stick }
+    methods: [POST]
+
+class_thread_unstick:
+    pattern:  /class/{classId}/thread/{threadId}/unstick
+    defaults: { _controller: TopxiaWebBundle:ClassThread:unstick }
+    methods: [POST]
+
+class_thread_elite:
+    pattern:  /class/{classId}/thread/{threadId}/elite
+    defaults: { _controller: TopxiaWebBundle:ClassThread:elite }
+    methods: [POST]
+
+class_thread_unelite:
+    pattern:  /class/{classId}/thread/{threadId}/unelite
+    defaults: { _controller: TopxiaWebBundle:ClassThread:unelite }
+    methods: [POST]
+
+class_thread_delete:
+    pattern:  /class/{classId}/thread/{threadId}/delete
+    defaults: { _controller: TopxiaWebBundle:ClassThread:delete }
+    methods: [POST]
+
+class_notes:
+    pattern:  /class/{classId}/note
+    defaults: { _controller: TopxiaWebBundle:ClassNote:list }
+
+class_notes_like:
+    pattern:  /class/note/{noteId}/like
+    defaults: { _controller: TopxiaWebBundle:ClassNote:like }
+
+class_notes_cancle_like:
+    pattern:  /class/note/{noteId}/cancleLike
+    defaults: { _controller: TopxiaWebBundle:ClassNote:cancleLike }
+
+class_members:
+    pattern:  /class/{classId}/member
+    defaults: { _controller: TopxiaWebBundle:ClassMember:list }
+
+class_schedule:
+    pattern:  /class/{classId}/schedule
+    defaults: { _controller: TopxiaWebBundle:ClassSchedule:show }
+
+class_schedule_reset:
+    pattern:  /class/{classId}/schedule/reset
+    defaults: { _controller: TopxiaWebBundle:ClassSchedule:schedule }
+
+class_schedule_save:
+    pattern:  /class/{classId}/schedule/save
+    defaults: { _controller: TopxiaWebBundle:ClassSchedule:save }
+
+class_schedule_mode:
+    pattern:  /class/{classId}/schedule/mode
+    defaults: { _controller: TopxiaWebBundle:ClassSchedule:courses }
+
+class_course_items:
+    pattern:  /class/course/{courseId}/items
+    defaults: { _controller: TopxiaWebBundle:ClassSchedule:getItems }
+
+class_student_schedule:
+    pattern:  /class/{classId}/{userId}/{viewType}
+    defaults: { _controller: TopxiaWebBundle:Class:schedule }
+
+my_children:
+    pattern:  /my/children
+    defaults: { _controller: TopxiaWebBundle:Parent:myChildren }
+
+parent_child_status:
+    pattern:  /parent/child/{childId}/status
+    defaults: { _controller: TopxiaWebBundle:Parent:childStatus }
+
+parent_child_schedules:
+    pattern:  /parent/child/{childId}/schedules
+    defaults: { _controller: TopxiaWebBundle:Parent:childSchedules }
+
+parent_child_more_status:
+    pattern:  /parent/child/{childId}/more/status
+    defaults: { _controller: TopxiaWebBundle:Parent:moreStatuses }
+
+parent_child_courses:
+    pattern:  /parent/child/{childId}/courses
+    defaults: { _controller: TopxiaWebBundle:Parent:childCourses }
+
+parent_child_testpapers:
+    pattern:  /parent/child/{childId}/testpapers
+    defaults: { _controller: TopxiaWebBundle:Parent:childTestpapers }
+
+parent_child_threads:    
+    pattern:  /parent/child/{childId}/threads/{type}
+    defaults: { _controller: TopxiaWebBundle:Parent:childThreads }
+

@@ -1,0 +1,56 @@
+{% set week = ['日','一','二','三','四','五','六']%}
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="schedule-calendar schedule-calendar-month">
+        <thead>
+          <tr>
+            {% for day in period|slice(0, 7) %}
+              <th {% if day == 'now'|date('Ymd')%} class="today" {% endif %} data-day="{{ day }}" >
+                <div class="week-text">{{ week[loop.index0]}}</div>
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% set index = 0 %}
+          {% for i in 1..((period|length)//7) %}
+            <tr>
+              {% for day in period|slice(index,7)%}
+                <td class="{% if schedules[day] is defined %} has-lesson {% endif %} {% if day|slice(0,4) != year or day|slice(4,2) != month %} not-in-month {% endif %}{% if day == 'now'|date('Ymd')%} today {% endif %}">
+                  <div class="day-text">
+                    {{ day|slice(6,2)|number_format }}
+                  </div>
+                  
+                  {% if schedules[day] is defined %}
+                    <div class="count-text">
+                      <span class="count">{{ schedules[day]|length }}</span><span class="text">门课</span>
+                    </div> 
+                    <div class='hidden popover-content'>
+                    <ul class='lesson-ul-pop'>
+                      {% for schedule in schedules[day] %}
+                        {% if lessons[schedule.lessonId]|default(null) %}
+                          {% set lesson = lessons[schedule.lessonId] %}
+                          {% set course = courses[lesson.courseId]%}
+                          {% set teacher = teachers[course.teacherIds[0]] %}
+                          {% set lessonUrl = path('course_learn', {id:course.id}) ~ '#lesson/' ~ lesson.id%}
+                            <li class='gotolesson' data-url="{{ lessonUrl }}">
+                              <div class="lesson-title">{{ lesson.title }}</div>
+                              <div class="course-title text-muted">来自{{ course.title }}课程</div>
+                            </li>
+                        {% endif %}  
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+            {% set index = index + 7 %}    
+          {% endfor %}  
+        </tbody>
+      </table>
+    </div> <!-- /table-responsive -->
+  </div> <!-- /col-md-10 -->
+
+</div>

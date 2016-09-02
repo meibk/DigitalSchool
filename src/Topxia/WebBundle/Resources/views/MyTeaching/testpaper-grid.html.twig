@@ -1,0 +1,15 @@
+<div class="myteaching-thread">
+  <a href="{{path('user_show',{id:testpaperUser.id})}}">
+    <img class="pull-left"  width="48" height="48" src="{{file_path(testpaperUser.smallAvatar, 'avatar.png')}}" alt="{{testpaperUser.truename}}">
+  </a>
+  <div class="text">
+    <div class="title">
+      <a href="{{ path('course_manage_test_teacher_check', {id:paperResult.id}) }}" target="_blank">
+        <h5 class="media-heading">{{ testpaper.name|plain_text(60) }}</h5>
+      </a>
+    </div>
+    <div class="name">
+      <a href="{{ path('user_show', {id:testpaperUser.id}) }}">{{testpaperUser.truename}}</a>
+    </div>
+  </div>
+</div><br><br><hr>

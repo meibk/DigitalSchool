@@ -1,0 +1,54 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+
+{% set modalSize = 'large' %}
+
+{% block title %}选增课程{% endblock %}
+{% block body %}
+
+<form id="class-course-add-form" class="form-horizontal" method="post" action="{{ path('admin_school_class_course_add', { classId:class.classId })}}">
+
+  <ul class="nav nav-tabs" role="tablist">
+    {% if grade != null %}
+    <li role="presentation" {% if class.public == 0 %} class="active" {% endif %}data-url="{{path('admin_school_class_course_add', { classId:class.classId, gradeId:class.gradeId, term:class.term, public:0 })}}"><a href="#" >{{ grade.name }}</a></li>
+    {% endif %}
+    <li role="presentation" {% if class.public == 1 %} class="active" {% endif %} data-url="{{path('admin_school_class_course_add', { classId:class.classId, gradeId:class.gradeId, term:class.term, public:1 })}}"><a href="#" >公共课</a></li>
+  </ul>
+
+  <div class="tab-target">
+    {% include 'TopxiaAdminBundle:School:ajax-tab.html.twig' with {courses:courses, paginator:paginator } %}
+  </div>
+
+  <div class="hidden" id="select-area">
+    <div class="row form-group">
+      <div class="col-md-8 col-md-offset-1 ">
+        <span id="title-span"></span> <span class="text-muted mll" id="name-span"></span>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-md-2 control-label">
+        <label>必修课</label>
+      </div>
+      <div class="col-md-7 controls radios">
+        {{ radios('compulsory',{'1':'必修','0':'选修'},'')}}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-2 control-label">任课老师</label>
+      <div class="col-md-4 controls">
+        <input type="text" id="teacherId" name="teacherId" required="required" class="width-full select2-offscreen" tabindex="-1" value="" data-url="{{path('admin_school_teacher_name')}}">
+      </div>
+    </div>
+  </div>
+
+<input class="hidden" name="parentId" id="parentId" value="">
+
+</form>
+{% endblock %}
+
+{% block footer %}
+<button id="class-course-add-btn" data-submiting-text="正在提交" type="submit" class="btn btn-primary pull-right" data-toggle="form-submit" data-target="#class-course-add-form">提交</button>
+<button type="button" class="btn btn-link pull-right" data-dismiss="modal" id="backto" data-url="{{ path('admin_school_class_course_manage', { classId:class.classId }) }}">取消</button>
+<script>app.load('school/course-add-modal')</script>
+{% endblock %}
